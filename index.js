@@ -5,27 +5,78 @@
    Web app: _put project's github pages URL here_
    */
 
-// ======== OBJECTS DEFINITIONS ========
-// Define your objects here
+const dog = {
+  species: 'dog',
+  name: 'Beethoven',
+  gender: 'male',
+  legs: 4,
+  hands: 0,
+  saying: 'woof',
+  friends: ['Clyde'],
+};
 
+const cat = {
+  species: 'cat',
+  name: 'Grizabella',
+  gender: 'female',
+  legs: 4,
+  hands: 0,
+  saying: 'meow',
+  friends: ['Bonnie'],
+};
 
-// ======== OUTPUT ========
-/* Use print(message) for output.
-   Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
+const man = {
+  species: 'human',
+  name: 'Clyde',
+  gender: 'male',
+  legs: 2,
+  hands: 2,
+  saying: 'Get rich or die trying!',
+  friends: ['Bonnie', 'Beethoven'],
+};
 
-   Message can contain HTML markup. You may also tweak index.html and/or styles.css.
-   However, please, REFRAIN from improving visuals at least until your code is reviewed
-   so code reviewers might focus on a single file that is index.js.
-   */
+const woman = {
+  species: 'human',
+  name: 'Bonnie',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: 'I have the right to not answer a questions!',
+  friends: ['Clyde', 'Grizabella'],
+};
 
-/* Print examples:
-   print('ABC');
-   print('<strong>ABC</strong>');
-   print('<strong>ABC</strong>', 'div');
+const catwoman = {
+  species: 'human',
+  name: 'Selina',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: cat.saying,
+  friends: [],
+};
 
-   print('human; John; male; 2; 2; Hello world!; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
-   */
+const characters = [dog, cat, man, woman, catwoman];
 
+const props = [
+  'species',
+  'name',
+  'gender',
+  'legs',
+  'hands',
+  'saying',
+  'friends',
+];
 
+characters.forEach((character) => {
+  let representation = '';
+  for (let i = 0; i < props.length; i++) {
+    if (props[i] === 'hands' && character[props[i]] === 0) {
+      continue;
+    } else if (i < props.length - 1) {
+      representation += `${character[props[i]]}; `;
+    } else {
+      representation += `${character[props[i]].join(', ')}`;
+    }
+  }
+  print(representation);
+});
