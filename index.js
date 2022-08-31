@@ -5,77 +5,69 @@
    Web app: https://bmukha.github.io/a-tiny-JS-world/
    */
 
-const dog = {
-  species: 'dog',
-  name: 'Beethoven',
-  gender: 'male',
-  legs: 4,
-  hands: 0,
-  saying: 'woof',
-  friends: ['Clyde'],
-};
+class Character {
+  constructor(specie, name, gender, saying, friends, legs) {
+    this.specie = specie;
+    this.name = name;
+    this.gender = gender;
+    this.legs = legs;
+    this.saying = saying;
+    this.friends = friends;
+  }
 
-const cat = {
-  species: 'cat',
-  name: 'Grizabella',
-  gender: 'female',
-  legs: 4,
-  hands: 0,
-  saying: 'meow',
-  friends: ['Bonnie'],
-};
-
-const man = {
-  species: 'human',
-  name: 'Clyde',
-  gender: 'male',
-  legs: 2,
-  hands: 2,
-  saying: 'Get rich or die trying!',
-  friends: ['Bonnie', 'Beethoven'],
-};
-
-const woman = {
-  species: 'human',
-  name: 'Bonnie',
-  gender: 'female',
-  legs: 2,
-  hands: 2,
-  saying: 'I have the right to not answer a questions!',
-  friends: ['Clyde', 'Grizabella'],
-};
-
-const catwoman = {
-  species: 'human',
-  name: 'Selina',
-  gender: 'female',
-  legs: 2,
-  hands: 2,
-  saying: cat.saying,
-  friends: [],
-};
-
-const characters = [dog, cat, man, woman, catwoman];
-
-const props = [
-  'species',
-  'name',
-  'gender',
-  'legs',
-  'hands',
-  'saying',
-  'friends',
-];
-
-characters.forEach((character) => {
-  print(
-    props
+  props() {
+    return ['specie', 'name', 'gender', 'legs', 'hands', 'saying', 'friends']
       .map((prop) =>
-        Array.isArray(character[prop])
-          ? character[prop].join(', ')
-          : character[prop]
+        Array.isArray(this[prop]) ? this[prop].join(', ') : this[prop]
       )
       .filter((value) => Boolean(value))
-      .join('; ')
-  );
-});
+      .join('; ');
+  }
+}
+
+class Dog extends Character {
+  constructor(name, gender, saying, friends) {
+    super('dog', name, gender, saying, friends, 4);
+  }
+}
+
+const beethoven = new Dog('Beethoven', 'male', 'woof', ['Clyde']);
+
+class Cat extends Character {
+  constructor(name, gender, saying, friends) {
+    super('cat', name, gender, saying, friends, 4);
+  }
+}
+
+const grizabella = new Cat('Grizabella', 'female', 'meow', ['Bonnie']);
+
+class Human extends Character {
+  constructor(name, gender, saying, friends) {
+    super('human', name, gender, saying, friends, 2);
+    this.hands = 2;
+  }
+}
+
+const clyde = new Human('Clyde', 'male', 'Get rich or die trying!', [
+  'Bonnie',
+  'Beethoven',
+]);
+
+const bonnie = new Human(
+  'Bonnie',
+  'female',
+  'I have the right to not answer a questions!',
+  ['Clyde', 'Grizabella']
+);
+
+class CatWomen extends Human {
+  constructor(name, friends) {
+    super(name, 'female', grizabella.saying, friends);
+  }
+}
+
+const selina = new CatWomen('Selina', []);
+
+[beethoven, grizabella, clyde, bonnie, selina].forEach((character) =>
+  print(character.props())
+);
